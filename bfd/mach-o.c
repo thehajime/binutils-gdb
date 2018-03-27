@@ -2846,7 +2846,7 @@ bfd_mach_o_build_obj_seg_command (bfd *abfd, bfd_mach_o_segment_command *seg)
       if (s->size > 0)
 	{
 	  seg->vmsize = FILE_ALIGN (seg->vmsize, s->align);
-	  seg->vmsize += s->size;
+	  seg->vmsize += FILE_ALIGN (s->size, s->align);
 
 	  /* MH_OBJECT files have unaligned content.  */
 	  if (1)
@@ -2886,7 +2886,7 @@ bfd_mach_o_build_obj_seg_command (bfd *abfd, bfd_mach_o_segment_command *seg)
 	  if (s->size > 0)
 	    {
 	      seg->vmsize = FILE_ALIGN (seg->vmsize, s->align);
-	      seg->vmsize += s->size;
+	      seg->vmsize += FILE_ALIGN (s->size, s->align);
 	    }
 	}
     }
@@ -2972,7 +2972,7 @@ bfd_mach_o_build_exec_seg_command (bfd *abfd, bfd_mach_o_segment_command *seg)
 
       /* Adjust segment size.  */
       seg->vmsize = FILE_ALIGN (seg->vmsize, s->align);
-      seg->vmsize += s->size;
+      seg->vmsize += FILE_ALIGN (s->size, s->align);
 
       /* File offset and length.  */
       seg->filesize = FILE_ALIGN (seg->filesize, s->align);
